@@ -1,9 +1,9 @@
 package rm.com.overqr.ui;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import butterknife.BindView;
@@ -43,7 +43,7 @@ public final class MainActivity extends AppCompatActivity implements Wrapper {
   }
 
   private void navigateTo(@NonNull Fragment fragment, boolean root) {
-    final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction()
+    final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction()
         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         .replace(R.id.container, fragment);
 
