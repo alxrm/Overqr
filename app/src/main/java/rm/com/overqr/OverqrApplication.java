@@ -12,7 +12,7 @@ public final class OverqrApplication extends Application {
 
   @Override public void onCreate() {
     super.onCreate();
-    component = DaggerOverqrComponent.builder().overqrModule(new OverqrModule()).build();
+    component = DaggerOverqrComponent.builder().overqrModule(new OverqrModule(this)).build();
   }
 
   public final OverqrComponent injector() {

@@ -2,7 +2,7 @@ package rm.com.overqr;
 
 import dagger.Component;
 import javax.inject.Singleton;
-import rm.com.overqr.ui.CaptureFragment;
+import rm.com.overqr.ui.fragment.CaptureFragment;
 
 /**
  * Created by alex

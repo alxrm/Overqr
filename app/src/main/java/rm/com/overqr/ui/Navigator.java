@@ -7,8 +7,8 @@ import android.support.v4.app.Fragment;
  * Created by alex
  */
 
-interface Wrapper {
-  void navigateTo(@NonNull Fragment dest);
+public interface Navigator {
+  void to(@NonNull Fragment dest);
 
-  void navigateBack();
+  void back();
 }

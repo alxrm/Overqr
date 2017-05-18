@@ -1,4 +1,4 @@
-package rm.com.overqr.ui;
+package rm.com.overqr.ui.fragment;
 
 import android.Manifest;
 import android.content.Context;

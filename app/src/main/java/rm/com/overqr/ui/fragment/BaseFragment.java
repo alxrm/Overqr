@@ -1,4 +1,4 @@
-package rm.com.overqr.ui;
+package rm.com.overqr.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rm.com.overqr.OverqrApplication;
+import rm.com.overqr.OverqrComponent;
+import rm.com.overqr.ui.Navigator;
 
 abstract class BaseFragment extends Fragment {
 
@@ -47,22 +50,26 @@ abstract class BaseFragment extends Fragment {
   }
 
   protected void navigateBack() {
-    final Wrapper owner = getWrapper();
+    final Navigator navigator = navigator();
 
-    if (owner != null) {
-      owner.navigateBack();
+    if (navigator != null) {
+      navigator.back();
     }
   }
 
-  @Nullable final protected Wrapper getWrapper() {
-    return (Wrapper) getActivity();
+  @Nullable final protected Navigator navigator() {
+    return (Navigator) getActivity();
   }
 
   final protected void navigateTo(@NonNull Fragment fragment) {
-    final Wrapper owner = getWrapper();
+    final Navigator navigator = navigator();
 
-    if (owner != null) {
-      owner.navigateTo(fragment);
+    if (navigator != null) {
+      navigator.to(fragment);
     }
+  }
+
+  @NonNull final protected OverqrComponent injector() {
+    return ((OverqrApplication) getActivity().getApplication()).injector();
   }
 }

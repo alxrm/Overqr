@@ -23,7 +23,7 @@ public final class Lists {
     final ArrayList<T> result = new ArrayList<>(from.size());
 
     for (int i = 0; i < from.size(); i++) {
-      T elem = from.get(i);
+      T elem = from.valueAt(i);
 
       if (elem != null) {
         result.add(elem);

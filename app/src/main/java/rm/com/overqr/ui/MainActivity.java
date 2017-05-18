@@ -10,8 +10,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rm.com.overqr.R;
+import rm.com.overqr.ui.fragment.IntroFragment;
 
-public final class MainActivity extends AppCompatActivity implements Wrapper {
+public final class MainActivity extends AppCompatActivity implements Navigator {
 
   @BindView(R.id.toolbar) Toolbar toolbar;
 
@@ -34,11 +35,11 @@ public final class MainActivity extends AppCompatActivity implements Wrapper {
     }
   }
 
-  @Override public void navigateTo(@NonNull Fragment dest) {
+  @Override public void to(@NonNull Fragment dest) {
     navigateTo(dest, false);
   }
 
-  @Override public void navigateBack() {
+  @Override public void back() {
     onBackPressed();
   }
 
