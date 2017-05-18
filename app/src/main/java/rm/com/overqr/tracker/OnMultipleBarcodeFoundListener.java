@@ -10,6 +10,5 @@ import java.util.List;
  */
 
 public interface OnMultipleBarcodeFoundListener {
-  @UiThread
-  void onMultipleBarcodeFound(@NonNull List<Barcode> barcode);
+  @UiThread void onMultipleBarcodeFound(@NonNull List<Barcode> barcode);
 }

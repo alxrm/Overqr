@@ -9,6 +9,5 @@ import com.google.android.gms.vision.barcode.Barcode;
  */
 
 public interface OnSingleBarcodeFoundListener {
-  @UiThread
-  void onSingleBarcodeFound(@NonNull Barcode barcode);
+  @UiThread void onSingleBarcodeFound(@NonNull Barcode barcode);
 }
