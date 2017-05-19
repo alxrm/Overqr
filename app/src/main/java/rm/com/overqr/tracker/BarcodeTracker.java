@@ -36,6 +36,7 @@ import rm.com.overqr.utils.Permissions;
   @Nullable private BarcodeDetector detector;
   @Nullable private SurfaceHolder cachedHolder;
 
+  @Nullable private OnErrorListener errorListener;
   @Nullable private OnSingleBarcodeFoundListener singleBarcodeListener;
   @Nullable private OnMultipleBarcodeFoundListener multipleBarcodeListener;
 
@@ -75,6 +76,10 @@ import rm.com.overqr.utils.Permissions;
     });
   }
 
+  public final void setErrorListener(@Nullable OnErrorListener errorListener) {
+    this.errorListener = errorListener;
+  }
+
   public final void setSingleBarcodeListener(
       @Nullable OnSingleBarcodeFoundListener singleBarcodeListener) {
     this.singleBarcodeListener = singleBarcodeListener;
@@ -89,6 +94,7 @@ import rm.com.overqr.utils.Permissions;
     detector = new BarcodeDetector.Builder(context).setBarcodeFormats(Barcode.QR_CODE).build();
 
     if (!isTrackingAvailable(context)) {
+      signalError("Could not start tracking");
       return;
     }
 
@@ -114,12 +120,13 @@ import rm.com.overqr.utils.Permissions;
 
   @WorkerThread private void initCameraSource(@NonNull SurfaceHolder holder) {
     if (!isTrackingAvailable(context)) {
+      signalError("Could not start tracking");
       return;
     }
 
     try {
       cameraSource = new CameraSource.Builder(context, detector).setRequestedFps(TARGET_FPS)
-          .setAutoFocusEnabled(hasAutofocus(context))
+          .setAutoFocusEnabled(hasAutoFocus(context))
           .setFacing(CameraSource.CAMERA_FACING_BACK)
           .build();
 
@@ -129,12 +136,18 @@ import rm.com.overqr.utils.Permissions;
     }
   }
 
+  private void signalError(@NonNull String msg) {
+    if (errorListener != null) {
+      errorListener.onError(msg);
+    }
+  }
+
   private boolean isTrackingAvailable(@NonNull Context context) {
     return detector != null && detector.isOperational() && Permissions.isCameraPermissionGranted(
         context);
   }
 
-  private boolean hasAutofocus(@NonNull Context context) {
+  private boolean hasAutoFocus(@NonNull Context context) {
     return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_AUTOFOCUS);
   }
 }

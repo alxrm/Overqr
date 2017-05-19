@@ -57,6 +57,10 @@ abstract class BaseFragment extends Fragment {
     }
   }
 
+  @NonNull final protected OverqrComponent injector() {
+    return ((OverqrApplication) getActivity().getApplication()).injector();
+  }
+
   @Nullable final protected Navigator navigator() {
     return (Navigator) getActivity();
   }
@@ -67,9 +71,5 @@ abstract class BaseFragment extends Fragment {
     if (navigator != null) {
       navigator.to(fragment);
     }
-  }
-
-  @NonNull final protected OverqrComponent injector() {
-    return ((OverqrApplication) getActivity().getApplication()).injector();
   }
 }

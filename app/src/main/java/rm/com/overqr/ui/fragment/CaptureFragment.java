@@ -6,11 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import butterknife.BindView;
 import com.google.android.gms.vision.barcode.Barcode;
 import javax.inject.Inject;
 import rm.com.overqr.R;
 import rm.com.overqr.tracker.BarcodeTracker;
+import rm.com.overqr.tracker.OnErrorListener;
 import rm.com.overqr.tracker.OnSingleBarcodeFoundListener;
 import rm.com.overqr.ui.preview.AutoFitSurfaceView;
 import rm.com.overqr.utils.Logger;
@@ -19,7 +21,8 @@ import rm.com.overqr.utils.Logger;
  * Created by alex
  */
 
-public final class CaptureFragment extends BaseFragment implements OnSingleBarcodeFoundListener {
+public final class CaptureFragment extends BaseFragment
+    implements OnSingleBarcodeFoundListener, OnErrorListener {
 
   @Inject BarcodeTracker tracker;
 
@@ -40,6 +43,7 @@ public final class CaptureFragment extends BaseFragment implements OnSingleBarco
     injector().inject(this);
 
     tracker.setSingleBarcodeListener(this);
+    tracker.setErrorListener(this);
 
     preview.setKeepScreenOn(true);
     preview.setOnSurfaceReady(holder -> {
@@ -60,5 +64,10 @@ public final class CaptureFragment extends BaseFragment implements OnSingleBarco
 
   @Override public void onSingleBarcodeFound(@NonNull Barcode barcode) {
     Logger.d(barcode.displayValue);
+  }
+
+  @Override public void onError(@NonNull String msg) {
+    Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+    navigateBack();
   }
 }
